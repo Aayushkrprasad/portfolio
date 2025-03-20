@@ -65,7 +65,7 @@ document.onkeydown = function(e) {
 document.addEventListener('visibilitychange',
 function(){
     if(document.visibilityState === "visible"){
-        document.title = "Experience | Portfolio Jigar Sable";
+        document.title = "Experience | Portfolio Aayush Prasad";
         $("#favicon").attr("href","/assets/images/favicon.png");
     }
     else {
@@ -75,58 +75,3 @@ function(){
 });
 
 
-/*job reccom */
-
-async function fetchJobs() {
-    try {
-        const response = await fetch("https://jsearch.p.rapidapi.com/search");
-        const jobs = await response.json();
-
-        // Remove first object (metadata)
-        jobs.shift();
-
-        // Display relevant jobs
-        displayJobs(jobs);
-    } catch (error) {
-        console.error("Error fetching jobs:", error);
-        document.getElementById("job-listings").innerHTML = "<p>Failed to load job listings. Try again later.</p>";
-    }
-}
-
-function displayJobs(jobs) {
-    const jobContainer = document.getElementById("job-listings");
-    if (jobs.length === 0) {
-        jobContainer.innerHTML = "<p>No relevant jobs found. Check again later.</p>";
-        return;
-    }
-
-    jobContainer.innerHTML = jobs.slice(0, 10).map(job => `
-        <div class="job-card">
-            <h3>${job.position}</h3>
-            <p><strong>Company:</strong> ${job.company}</p>
-            <a href="${job.url}" target="_blank">Apply Now</a>
-        </div>
-    `).join("");
-}
-
-// Fetch jobs when page loads
-
-fetchJobs();
-
-function toggleDropdown() {
-    document.getElementById("job-dropdown").classList.toggle("show");
-  }
-  
-  // Close dropdown if clicked outside
-  window.onclick = function(event) {
-    if (!event.target.matches('.job-btn')) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      for (var i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
-    }
-  };
-  
